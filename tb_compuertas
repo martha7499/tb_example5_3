@@ -1,0 +1,48 @@
+module tb_compuertas#(parameter WIDTH = 4);
+  //reg i,   //contador de cambios 
+  //reg clk, //asignacion de señal de reloj
+           //entradas y salidas
+  reg [WIDTH-1:0] a = 4'b0000;
+  reg [WIDTH-1:0] b = 4'b0000;
+  reg [WIDTH-1:0] bitwise_and;
+  reg [WIDTH-1:0] bitwise_or;
+  reg [WIDTH-1:0] bitwise_xor;
+  
+  integer i=0;
+   			//señal de reloj
+  bit clk; 
+  always #10ns clk=!clk;
+  
+  			//mandar llamar el modulo y asingacion de entradas y salidas
+  compuertas #(.WIDTH(4)) DUT (
+    .a(a),
+    .b(b),
+    .clk(clk),
+    .bitwise_and(bitwise_xor),
+    .bitwise_or(bitwise_or),
+    .bitwise_xor(bitwise_and)
+  );
+  initial begin 
+    $dumpfile("filel.vcd");
+    $dumpvars;
+  end
+  always @(posedge clk)begin
+    i=i+1;
+    if (i<=5) begin 
+      a = $urandom;
+      b = $urandom;
+      #2
+      $write("Iteracion No.%-1h ", i);
+      $write("A: %b ", a);
+      $write("B: %b ", b);
+      $write("AND: %b ", bitwise_and);
+      $write("OR: %b ", bitwise_or);
+      $write("XOR: %b ", bitwise_xor);
+      $write("\n");
+    end
+    if(i==10) begin 
+      $finish; 
+    end
+  end 
+endmodule  
+//endmodule 
