@@ -6,9 +6,7 @@ module compuertas#(parameter WIDTH = 4)(
   output reg [WIDTH-1:0] bitwise_or,
   output reg [WIDTH-1:0] bitwise_xor
 );
-  always @(posedge clk) begin
     assign  bitwise_and=a&b;
     assign  bitwise_or = a|b;
-    assign  bitwise_xor = a^b;
-  end 
+    assign  bitwise_xor = a^b; 
 endmodule 
